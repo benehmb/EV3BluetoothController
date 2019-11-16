@@ -24,12 +24,13 @@ class Settings : AppCompatActivity() {
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
         connectionType.adapter = adapter
 
-        connectionType.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+        connectionType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 // Display the selected item text on text view
                 print("Spinner selected : ${parent.getItemAtPosition(position)}")
             }
-            override fun onNothingSelected(parent: AdapterView<*>){
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
                 // Another interface callback
             }
         }

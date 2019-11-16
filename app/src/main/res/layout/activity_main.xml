@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,103 +9,100 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight=".25"
-        android:max= "@integer/max_range"
-        android:paddingBottom="16dp"
-        android:paddingEnd="32dp"
+        android:max="@integer/max_range"
         android:paddingStart="32dp"
         android:paddingTop="16dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="16dp"
         android:progressDrawable="@drawable/shape_seekbar_background"
-        android:thumb="@drawable/shape_seekbar_thumb"/>
+        android:thumb="@drawable/shape_seekbar_thumb" />
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight=".5"
-        android:paddingBottom="16dp"
-        android:paddingTop="32dp">
+        android:paddingTop="32dp"
+        android:paddingBottom="16dp">
 
         <TextView
             android:id="@+id/state"
             android:layout_width="207dp"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/reconnect"
-            android:layout_alignParentStart="true"
-            android:layout_toStartOf="@+id/reconnect"
-            android:textAppearance="@android:style/TextAppearance.Material" />
+            android:textAppearance="@android:style/TextAppearance.Material"
+            app:layout_constraintBaseline_toBaselineOf="@+id/reconnect"
+            app:layout_constraintEnd_toStartOf="@+id/reconnect"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/reconnect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:text="@string/reconnect"/>
+            android:text="@string/reconnect"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Switch
             android:id="@+id/sync"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/reconnect"
             android:paddingTop="16dp"
-            android:text="@string/sync_controls"/>
+            android:text="@string/sync_controls"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/reconnect" />
 
         <Button
             android:id="@+id/reset"
-            android:layout_width="wrap_content"
+            android:layout_width="88dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:text="@string/reset"/>
+            android:text="@string/reset"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnSettings" />
 
         <TextView
             android:id="@+id/progressLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/reset"
-            android:layout_alignParentStart="true"
-            android:textSize="56sp"/>
+            android:textSize="56sp"
+            app:layout_constraintBottom_toTopOf="@+id/reset"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/progressRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/reset"
-            android:layout_alignParentEnd="true"
-            android:textSize="56sp"/>
+            android:textSize="56sp"
+            app:layout_constraintBottom_toTopOf="@+id/reset"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/incomeing"
             android:layout_width="match_parent"
             android:layout_height="155dp"
-            android:layout_above="@+id/progressLeft"
-            android:layout_below="@+id/sync"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
             android:layout_marginEnd="0dp"
             android:layout_marginBottom="0dp"
             android:gravity="bottom"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/progressLeft"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sync" />
 
         <ImageView
             android:id="@+id/btnSettings"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:layout_toStartOf="@+id/reset"
             android:contentDescription="@string/settings_button"
             android:focusable="true"
+            android:src="@drawable/ic_settings_black_24dp"
             android:visibility="visible"
-            app:srcCompat="@drawable/ic_settings_black_24dp"
-            tools:visibility="visible" />
-
-        <Button
-            android:id="@+id/needThis"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/settings_button" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/reset"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
-    </RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
 
     <de.benehmb.ev3bluetoothcontroller.VerticalSeekBar
         android:id="@+id/controlRight"
