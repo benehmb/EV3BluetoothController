@@ -2,7 +2,6 @@ package de.benehmb.ev3bluetoothcontroller
 
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
@@ -14,8 +13,8 @@ import app.akexorcist.bluetotohspp.library.BluetoothState
 import app.akexorcist.bluetotohspp.library.DeviceList
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 private const val REQUEST_ENABLE_BT = 9274
+private const val REQUEST_CODE_SETTINGS = 5234
 
 class MainActivity : Activity(), OnSeekBarChangeListener {
     private val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
@@ -66,9 +65,9 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
             incomeing.append(message + "\n")
         }
 
-        btnSettings.setOnClickListener {
+        needThis.setOnClickListener {
             val intent = Intent(this, Settings::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, REQUEST_CODE_SETTINGS)
         }
     }
 
@@ -94,6 +93,7 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
                 // Please don't do this in actual production releases
                 enableBluetooth()
             }
+        } else if (requestCode == REQUEST_CODE_SETTINGS) {
         }
     }
 
@@ -127,16 +127,10 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
         onProgressChanged(controlLeft, 0, true)
     }
 
-    fun chooseDevice() {
+    private fun chooseDevice() {
         bluetooth.setupService()
-        val prefs = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-        val typeOfConnection = prefs.getInt(getString(R.string.preference_file_key), 0)
-        if (typeOfConnection == 0) {
-            bluetooth.startService(BluetoothState.DEVICE_ANDROID)
-        } else if (typeOfConnection == 1){
-            bluetooth.startService(BluetoothState.DEVICE_OTHER)
-        }
-
+        //bluetooth.startService(BluetoothState.DEVICE_OTHER)
+        bluetooth.startService(BluetoothState.DEVICE_ANDROID)
 
         val intent = Intent(applicationContext, DeviceList::class.java)
         startActivityForResult(intent, BluetoothState.REQUEST_CONNECT_DEVICE)
