@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">EV3BluetoothController</string>
+    <string name="reconnect">Reconnect</string>
+    <string name="state">State</string>
+    <string name="state_connecting">Connecting…</string>
+    <string name="state_connected">Connected</string>
+    <string name="state_listening">Listening…</string>
+    <string name="state_none">None</string>
+    <string name="state_unknown">Unknown</string>
+    <string name="reset">Reset</string>
+    <string name="sync_controls">Sync controls</string>
+    <string name="settings_button">Settings Button</string>
+    <integer name="max_range">100</integer>
+</resources>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <de.benehmb.ev3bluetoothcontroller.VerticalSeekBar
+        android:id="@+id/controlLeft"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".25"
+        android:max= "@integer/max_range"
+        android:paddingBottom="16dp"
+        android:paddingEnd="32dp"
+        android:paddingStart="32dp"
+        android:paddingTop="16dp"
+        android:progressDrawable="@drawable/shape_seekbar_background"
+        android:thumb="@drawable/shape_seekbar_thumb"/>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".5"
+        android:paddingBottom="16dp"
+        android:paddingTop="32dp">
+
+        <TextView
+            android:id="@+id/state"
+            android:layout_width="207dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/reconnect"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/reconnect"
+            android:textAppearance="@android:style/TextAppearance.Material" />
+
+        <Button
+            android:id="@+id/reconnect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="@string/reconnect"/>
+
+        <Switch
+            android:id="@+id/sync"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/reconnect"
+            android:paddingTop="16dp"
+            android:text="@string/sync_controls"/>
+
+        <Button
+            android:id="@+id/reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/reset"/>
+
+        <TextView
+            android:id="@+id/progressLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/reset"
+            android:layout_alignParentStart="true"
+            android:textSize="56sp"/>
+
+        <TextView
+            android:id="@+id/progressRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/reset"
+            android:layout_alignParentEnd="true"
+            android:textSize="56sp"/>
+
+        <TextView
+            android:id="@+id/incomeing"
+            android:layout_width="match_parent"
+            android:layout_height="155dp"
+            android:layout_above="@+id/progressLeft"
+            android:layout_below="@+id/sync"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
+            android:gravity="bottom"
+            android:scrollbars="vertical" />
+
+        <ImageView
+            android:id="@+id/btnSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_toStartOf="@+id/reset"
+            android:contentDescription="@string/settings_button"
+            android:focusable="true"
+            android:visibility="visible"
+            app:srcCompat="@drawable/ic_settings_black_24dp"
+            tools:visibility="visible" />
+
+        <Button
+            android:id="@+id/needThis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_button" />
+
+
+    </RelativeLayout>
+
+    <de.benehmb.ev3bluetoothcontroller.VerticalSeekBar
+        android:id="@+id/controlRight"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight=".25"
+        android:max="@integer/max_range"
+        android:paddingStart="32dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="16dp"
+        android:progressDrawable="@drawable/shape_seekbar_background"
+        android:thumb="@drawable/shape_seekbar_thumb" />
+
+</LinearLayout>
