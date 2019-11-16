@@ -4,6 +4,7 @@ import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.Toast
@@ -11,15 +12,9 @@ import app.akexorcist.bluetotohspp.library.BluetoothSPP
 import app.akexorcist.bluetotohspp.library.BluetoothState
 import app.akexorcist.bluetotohspp.library.DeviceList
 import kotlinx.android.synthetic.main.activity_main.*
-import android.text.method.ScrollingMovementMethod
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
-
-
-
-
 
 private const val REQUEST_ENABLE_BT = 9274
+private const val REQUEST_CODE_SETTINGS = 5234
 
 class MainActivity : Activity(), OnSeekBarChangeListener {
     private val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
@@ -53,14 +48,14 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
                 BluetoothState.STATE_NONE -> R.string.state_none
                 else -> R.string.state_unknown
             })
-            if(it == BluetoothState.STATE_CONNECTED){
+            if (it == BluetoothState.STATE_CONNECTED) {
                 state.append(" to " + bluetooth.connectedDeviceName)
             }
 
         }
 
         controlLeft.setOnSeekBarChangeListener(this)
-        controlLeft.minSeekBarProgress =  resources.getInteger(R.integer.max_range)
+        controlLeft.minSeekBarProgress = resources.getInteger(R.integer.max_range)
         progressLeft.text = controlLeft.seekBarProgress.toString()
         controlRight.setOnSeekBarChangeListener(this)
         controlRight.minSeekBarProgress = resources.getInteger(R.integer.max_range)
@@ -72,13 +67,13 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
 
         needThis.setOnClickListener {
             val intent = Intent(this, Settings::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, REQUEST_CODE_SETTINGS)
         }
     }
 
     override fun onPause() {
         super.onPause()
-        if(this.bluetooth.isBluetoothEnabled) {
+        if (this.bluetooth.isBluetoothEnabled) {
             resetControls()
         }
     }
@@ -98,6 +93,7 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
                 // Please don't do this in actual production releases
                 enableBluetooth()
             }
+        } else if (requestCode == REQUEST_CODE_SETTINGS) {
         }
     }
 
