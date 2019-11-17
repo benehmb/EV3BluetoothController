@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.activity_settings.*
-import de.benehmb.ev3bluetoothcontroller.MainActivity
 
 
 class Settings : AppCompatActivity() {
@@ -38,7 +37,6 @@ class Settings : AppCompatActivity() {
                 // Display the selected item text on text view
                 print("Spinner selected : ${parent.getItemAtPosition(position)}")
                 prefs.edit().putInt(getString(R.string.preference_file_key), position).apply()
-                chooseDevice()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
