@@ -69,22 +69,6 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
         btnSettings.setOnClickListener {
             val intent = Intent(this, Settings::class.java)
             startActivityForResult(intent, REQUEST_CODE_SETTINGS)
-            bluetooth.disconnect()
-            bluetooth.stopService()
-
-            val prefs = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-
-            // use a default value using new Date()
-            val typeOfConnection = prefs.getInt(getString(R.string.preference_file_key), 0)
-            print("TypeOfConnection: $typeOfConnection")
-            incomeing.append("TypeOfConnection: $typeOfConnection \n")
-            if(typeOfConnection==0) {
-                bluetooth.startService(BluetoothState.DEVICE_ANDROID)
-                incomeing.append("IF0")
-            }else if(typeOfConnection==1){
-                bluetooth.startService(BluetoothState.DEVICE_OTHER)
-                incomeing.append("IF1")
-            }
         }
     }
 
@@ -110,9 +94,11 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
                 // Please don't do this in actual production releases
                 enableBluetooth()
             }
-        }// else if (requestCode == REQUEST_CODE_SETTINGS) {
-
-        //}
+        } else if (requestCode == REQUEST_CODE_SETTINGS) {
+            bluetooth.disconnect()
+            bluetooth.stopService()
+            chooseDevice()
+        }
     }
 
     override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
