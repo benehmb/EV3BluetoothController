@@ -71,6 +71,7 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
             startActivityForResult(intent, REQUEST_CODE_SETTINGS)
             bluetooth.disconnect()
             bluetooth.stopService()
+
             val prefs = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
 
             // use a default value using new Date()
