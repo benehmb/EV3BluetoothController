@@ -110,8 +110,9 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
                 // Please don't do this in actual production releases
                 enableBluetooth()
             }
-        } else if (requestCode == REQUEST_CODE_SETTINGS) {
-        }
+        }// else if (requestCode == REQUEST_CODE_SETTINGS) {
+
+        //}
     }
 
     override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
