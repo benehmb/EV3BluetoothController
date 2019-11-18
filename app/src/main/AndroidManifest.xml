@@ -14,10 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
         <activity
-            android:name=".Settings"
+            android:name=".SettingsActivity"
             android:screenOrientation="userLandscape"
-            android:theme="@style/Theme.AppCompat.Light"></activity>
+            android:theme="@style/Theme.AppCompat.Light" />
+
         <activity
             android:name=".MainActivity"
             android:screenOrientation="userLandscape">
@@ -27,9 +29,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name="app.akexorcist.bluetotohspp.library.DeviceList"
             android:screenOrientation="userLandscape" />
-    </application>
 
+    </application>
 </manifest>

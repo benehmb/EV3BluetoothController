@@ -2,9 +2,9 @@ package de.benehmb.ev3bluetoothcontroller
 
 import android.app.Activity
 import android.bluetooth.BluetoothAdapter
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.text.method.ScrollingMovementMethod
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
@@ -29,7 +29,7 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
         bluetooth = BluetoothSPP(this)
         enableBluetooth()
 
-        incomeing.movementMethod = ScrollingMovementMethod()
+        incoming.movementMethod = ScrollingMovementMethod()
 
         reconnect.setOnClickListener {
             bluetooth.disconnect()
@@ -63,11 +63,11 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
         progressRight.text = controlLeft.seekBarProgress.toString()
 
         bluetooth.setOnDataReceivedListener { _, message ->
-            incomeing.append(message + "\n")
+            incoming.append(message + "\n")
         }
 
         btnSettings.setOnClickListener {
-            val intent = Intent(this, Settings::class.java)
+            val intent = Intent(this, SettingsActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE_SETTINGS)
         }
     }
@@ -133,16 +133,12 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
 
     private fun chooseDevice() {
         bluetooth.setupService()
-        //bluetooth.startService(BluetoothState.DEVICE_OTHER)
-        val prefs = this.getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
 
-        // use a default value using new Date()
         val typeOfConnection = prefs.getInt(getString(R.string.preference_file_key), 0)
-        //print("TypeOfConnection: $typeOfConnection")
-        //incoming.append("TypeOfConnection: $typeOfConnection \n")
-        if(typeOfConnection==0) {
+        if (typeOfConnection == 0) {
             bluetooth.startService(BluetoothState.DEVICE_ANDROID)
-        }else if(typeOfConnection==1){
+        } else if (typeOfConnection == 1) {
             bluetooth.startService(BluetoothState.DEVICE_OTHER)
         }
 
