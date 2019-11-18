@@ -10,6 +10,6 @@
     <string name="reset">Reset</string>
     <string name="sync_controls">Sync controls</string>
     <string name="settings_button">Settings Button</string>
-    <string name="preference_file_key">BTModer</string>
+    <string name="preference_file_key">BTMode</string>
     <integer name="max_range">100</integer>
 </resources>

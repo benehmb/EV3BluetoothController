@@ -49,9 +49,5 @@ class Settings : AppCompatActivity() {
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        //save Settings
-    }
 }
 

@@ -138,8 +138,8 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
 
         // use a default value using new Date()
         val typeOfConnection = prefs.getInt(getString(R.string.preference_file_key), 0)
-        print("TypeOfConnection: $typeOfConnection")
-        incomeing.append("TypeOfConnection: $typeOfConnection \n")
+        //print("TypeOfConnection: $typeOfConnection")
+        //incoming.append("TypeOfConnection: $typeOfConnection \n")
         if(typeOfConnection==0) {
             bluetooth.startService(BluetoothState.DEVICE_ANDROID)
         }else if(typeOfConnection==1){
