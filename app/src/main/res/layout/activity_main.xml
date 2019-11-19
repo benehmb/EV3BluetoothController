@@ -26,6 +26,17 @@
         android:paddingBottom="16dp">
 
         <TextView
+            android:id="@+id/incoming"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="bottom"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/progressLeft"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sync" />
+
+        <TextView
             android:id="@+id/state"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -75,17 +86,6 @@
             android:textSize="56sp"
             app:layout_constraintBottom_toTopOf="@+id/reset"
             app:layout_constraintEnd_toEndOf="parent" />
-
-        <TextView
-            android:id="@+id/incoming"
-            android:layout_width="363dp"
-            android:layout_height="108dp"
-            android:gravity="bottom"
-            android:scrollbars="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/progressLeft"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sync" />
 
         <ImageView
             android:id="@+id/btnSettings"
