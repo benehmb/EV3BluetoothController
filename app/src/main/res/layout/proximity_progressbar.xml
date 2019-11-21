@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style android:name="ProgressBarPrimary"
+    android:parent="android:Widget.ProgressBar.Horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:name="android:indeterminateOnly">false</item>
+    <item android:name="android:progressDrawable">@drawable/progress_bar_drawable</item>
+    <item android:name="android:minHeight">10dip</item>
+    <item android:name="android:maxHeight">20dip</item>
+</style>
