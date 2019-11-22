@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.text.method.ScrollingMovementMethod
+import android.view.View
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.Toast
@@ -13,6 +14,7 @@ import app.akexorcist.bluetotohspp.library.BluetoothSPP
 import app.akexorcist.bluetotohspp.library.BluetoothState
 import app.akexorcist.bluetotohspp.library.DeviceList
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.car_proximaty.*
 
 private const val REQUEST_ENABLE_BT = 9274
 private const val REQUEST_CODE_SETTINGS = 5234
@@ -21,8 +23,15 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
     private val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
     private val hasBluetoothAdapter = bluetoothAdapter != null
     private lateinit var bluetooth: BluetoothSPP
+    private var compareTypeOfConnection = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+
+        compareTypeOfConnection = prefs.getInt(this.getString(R.string.connection_file_key), 0)
+
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -30,6 +39,14 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
         enableBluetooth()
 
         incoming.movementMethod = ScrollingMovementMethod()
+
+        if (prefs.getInt(this.getString(R.string.center_display_file_key), 0) == 0){
+            incoming.visibility = View.VISIBLE
+            carProximatyDisplay.visibility = View.INVISIBLE
+        }else if(prefs.getInt(this.getString(R.string.center_display_file_key), 0) == 1){
+            incoming.visibility = View.INVISIBLE
+            carProximatyDisplay.visibility = View.VISIBLE
+        }
 
         reconnect.setOnClickListener {
             bluetooth.disconnect()
@@ -64,6 +81,11 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
 
         bluetooth.setOnDataReceivedListener { _, message ->
             incoming.append(message + "\n")
+            if(prefs.getInt(this.getString(R.string.center_display_file_key), 0) == 1){
+                val position = message.indexOf('.')
+                proximityBack.progress = Integer.parseInt(message.substring(0, position))
+                proximityFront.progress = Integer.parseInt(message.substring(position+1))
+            }
         }
 
         btnSettings.setOnClickListener {
@@ -81,6 +103,10 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        compareTypeOfConnection = prefs.getInt(this.getString(R.string.connection_file_key), 0)
+
         if (requestCode == BluetoothState.REQUEST_CONNECT_DEVICE) {
             if (resultCode == RESULT_OK) {
                 bluetooth.connect(data)
@@ -95,9 +121,19 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
                 enableBluetooth()
             }
         } else if (requestCode == REQUEST_CODE_SETTINGS) {
-            bluetooth.disconnect()
-            bluetooth.stopService()
-            chooseDevice()
+            if(compareTypeOfConnection == prefs.getInt(this.getString(R.string.connection_file_key), 0)) {
+                compareTypeOfConnection = prefs.getInt(this.getString(R.string.connection_file_key), 0)
+                bluetooth.disconnect()
+                bluetooth.stopService()
+                chooseDevice()
+            }
+            if (prefs.getInt(this.getString(R.string.center_display_file_key), 0) == 0){
+                incoming.visibility = View.VISIBLE
+                carProximatyDisplay.visibility = View.INVISIBLE
+            }else if(prefs.getInt(this.getString(R.string.center_display_file_key), 0) == 1){
+                incoming.visibility = View.INVISIBLE
+                carProximatyDisplay.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -135,7 +171,7 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
         bluetooth.setupService()
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
 
-        val typeOfConnection = prefs.getInt(getString(R.string.preference_file_key), 0)
+        val typeOfConnection = prefs.getInt(getString(R.string.connection_file_key), 0)
         if (typeOfConnection == 0) {
             bluetooth.startService(BluetoothState.DEVICE_ANDROID)
         } else if (typeOfConnection == 1) {

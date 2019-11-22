@@ -15,7 +15,7 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_settings)
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        val typeOfConnection = prefs.getInt(getString(R.string.preference_file_key), 0)
+        val typeOfConnection = prefs.getInt(getString(R.string.connection_file_key), 0)
 
         val adapter = ArrayAdapter(
                 this,
@@ -27,7 +27,25 @@ class SettingsActivity : AppCompatActivity() {
 
         connectionType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                prefs.edit().putInt(getString(R.string.preference_file_key), position).apply()
+                prefs.edit().putInt(getString(R.string.connection_file_key), position).apply()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+
+        val typeOfCenterDisplay = prefs.getInt(getString(R.string.center_display_file_key), 0)
+
+        val displays = ArrayAdapter(
+                this,
+                android.R.layout.simple_dropdown_item_1line,
+                arrayOf("Incoming text", "Proximity sensors")
+        )
+        displayCenter.adapter = displays
+        displayCenter.setSelection(typeOfCenterDisplay)
+
+        displayCenter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                prefs.edit().putInt(getString(R.string.center_display_file_key), position).apply()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -36,6 +54,9 @@ class SettingsActivity : AppCompatActivity() {
         btnApply.setOnClickListener {
             finish()
         }
+
+
+
     }
 }
 

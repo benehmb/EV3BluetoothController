@@ -10,7 +10,8 @@
     <string name="reset">Reset</string>
     <string name="sync_controls">Sync controls</string>
     <string name="settings_button">Settings Button</string>
-    <string name="preference_file_key">BTMode</string>
+    <string name="connection_file_key">BTMode</string>
+    <string name="center_display_file_key">DisplayMode</string>
     <string name="car_image">picture of car</string>
     <integer name="max_range">100</integer>
 </resources>

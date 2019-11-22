@@ -2,6 +2,9 @@
   <dictionary name="Morit">
     <words>
       <w>appname</w>
+      <w>benehmb</w>
+      <w>bluetoothcontroller</w>
+      <w>mikrocontroller</w>
     </words>
   </dictionary>
 </component>

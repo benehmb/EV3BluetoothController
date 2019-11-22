@@ -6,36 +6,40 @@
     android:layout_height="match_parent">
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/proximityBack"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:scaleY="8"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/carImage"
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/carImage"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:contentDescription="@string/car_image"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/progressBar2"
-        app:layout_constraintStart_toEndOf="@+id/progressBar"
+        app:layout_constraintEnd_toStartOf="@+id/proximityFront"
+        app:layout_constraintStart_toEndOf="@+id/proximityBack"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_car_top_view" />
+        android:src="@drawable/ic_car_top_view" />
 
     <ProgressBar
-        android:id="@+id/progressBar2"
+        android:id="@+id/proximityFront"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:scaleX="-1"
+        android:scaleY="8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/carImage"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.501" />
 
 </android.support.constraint.ConstraintLayout>
