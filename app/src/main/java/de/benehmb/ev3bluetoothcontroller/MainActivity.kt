@@ -82,9 +82,19 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
         bluetooth.setOnDataReceivedListener { _, message ->
             incoming.append(message + "\n")
             if(prefs.getInt(this.getString(R.string.center_display_file_key), 0) == 1){
-                val position = message.indexOf('.')
-                proximityBack.progress = Integer.parseInt(message.substring(0, position))
-                proximityFront.progress = Integer.parseInt(message.substring(position+1))
+                try {
+                    val position = message.indexOf('.')
+                    proximityBack.progress = Integer.parseInt(message.substring(0, position))
+                    proximityFront.progress = Integer.parseInt(message.substring(position + 1))
+                }catch (ex:Exception){
+                    when(ex){
+                        is NumberFormatException,
+                        is StringIndexOutOfBoundsException ->{
+                            Toast.makeText(this, "Error while receiving sensor data", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                }
             }
         }
 
