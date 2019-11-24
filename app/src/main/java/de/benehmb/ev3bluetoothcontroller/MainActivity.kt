@@ -89,7 +89,7 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
                 }catch (ex:Exception){
                     when(ex){
                         is NumberFormatException,
-                        is StringIndexOutOfBoundsException ->{
+                        is StringIndexOutOfBoundsException -> {
                             Toast.makeText(this, "Error while receiving sensor data", Toast.LENGTH_SHORT).show()
                         }
                     }
