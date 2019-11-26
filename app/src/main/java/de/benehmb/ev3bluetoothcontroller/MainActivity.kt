@@ -16,6 +16,7 @@ import app.akexorcist.bluetotohspp.library.DeviceList
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.car_proximaty.*
 
+
 private const val REQUEST_ENABLE_BT = 9274
 private const val REQUEST_CODE_SETTINGS = 5234
 
@@ -23,13 +24,11 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
     private val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
     private val hasBluetoothAdapter = bluetoothAdapter != null
     private lateinit var bluetooth: BluetoothSPP
-    private var compareTypeOfConnection = 0
+    private var changedTypeOfConnection = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-
-        compareTypeOfConnection = prefs.getInt(this.getString(R.string.connection_file_key), 0)
 
 
         super.onCreate(savedInstanceState)
@@ -102,6 +101,13 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE_SETTINGS)
         }
+
+        prefs.registerOnSharedPreferenceChangeListener { _, key ->
+                if (key == getString(R.string.connection_file_key)) {
+                    changedTypeOfConnection = true
+                }
+
+        }
     }
 
     override fun onPause() {
@@ -115,7 +121,6 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
         super.onActivityResult(requestCode, resultCode, data)
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        compareTypeOfConnection = prefs.getInt(this.getString(R.string.connection_file_key), 0)
 
         if (requestCode == BluetoothState.REQUEST_CONNECT_DEVICE) {
             if (resultCode == RESULT_OK) {
@@ -131,8 +136,8 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
                 enableBluetooth()
             }
         } else if (requestCode == REQUEST_CODE_SETTINGS) {
-            if(compareTypeOfConnection == prefs.getInt(this.getString(R.string.connection_file_key), 0)) {
-                compareTypeOfConnection = prefs.getInt(this.getString(R.string.connection_file_key), 0)
+            if(changedTypeOfConnection) {
+                changedTypeOfConnection = false
                 bluetooth.disconnect()
                 bluetooth.stopService()
                 chooseDevice()
