@@ -13,5 +13,6 @@
     <string name="connection_file_key">BTMode</string>
     <string name="center_display_file_key">DisplayMode</string>
     <string name="car_image">picture of car</string>
+    <string name="autopilot">Autopilot</string>
     <integer name="max_range">100</integer>
 </resources>

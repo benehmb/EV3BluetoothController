@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:text="@string/reset"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/autopilot"
             app:layout_constraintStart_toEndOf="@+id/btnSettings" />
 
         <TextView
@@ -112,6 +112,15 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/reset"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <Switch
+            android:id="@+id/autopilot"
+            android:layout_width="99dp"
+            android:layout_height="32dp"
+            android:text="@string/autopilot"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/reset" />
 
 
     </android.support.constraint.ConstraintLayout>

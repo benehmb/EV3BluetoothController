@@ -71,6 +71,18 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
 
         }
 
+        autopilot.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked){
+                progressLeft.isEnabled = false
+                progressRight.isEnabled = false
+                sendData("autopilot")
+            }else {
+                progressLeft.isEnabled = true
+                progressRight.isEnabled = true
+                sendData("${controlLeft.seekBarProgress}.${controlRight.seekBarProgress}")
+            }
+        }
+
         controlLeft.setOnSeekBarChangeListener(this)
         controlLeft.minSeekBarProgress = resources.getInteger(R.integer.max_range)
         progressLeft.text = controlLeft.seekBarProgress.toString()
