@@ -115,8 +115,8 @@
 
         <Switch
             android:id="@+id/autopilot"
-            android:layout_width="99dp"
-            android:layout_height="32dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/autopilot"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
