@@ -75,10 +75,14 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
             if (isChecked){
                 progressLeft.isEnabled = false
                 progressRight.isEnabled = false
+                controlLeft.isEnabled = false
+                controlRight.isEnabled = false
                 sendData("autopilot")
             }else {
                 progressLeft.isEnabled = true
                 progressRight.isEnabled = true
+                controlLeft.isEnabled = true
+                controlRight.isEnabled = true
                 sendData("${controlLeft.seekBarProgress}.${controlRight.seekBarProgress}")
             }
         }
@@ -191,7 +195,9 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
     private fun resetControls() {
         controlLeft.seekBarProgress = 0
         controlRight.seekBarProgress = 0
-        onProgressChanged(controlLeft, 0, true)
+        if(!autopilot.isChecked) {
+            onProgressChanged(controlLeft, 0, true)
+        }
     }
 
     private fun chooseDevice() {
