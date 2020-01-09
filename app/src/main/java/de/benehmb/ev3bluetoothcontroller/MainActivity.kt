@@ -39,10 +39,10 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
 
         incoming.movementMethod = ScrollingMovementMethod()
 
-        if (prefs.getInt(this.getString(R.string.center_display_file_key), 0) == 0){
+        if (prefs.getInt(this.getString(R.string.center_display_file_key), 0) == 0) {
             incoming.visibility = View.VISIBLE
             carProximatyDisplay.visibility = View.INVISIBLE
-        }else if(prefs.getInt(this.getString(R.string.center_display_file_key), 0) == 1){
+        } else if (prefs.getInt(this.getString(R.string.center_display_file_key), 0) == 1) {
             incoming.visibility = View.INVISIBLE
             carProximatyDisplay.visibility = View.VISIBLE
         }
@@ -72,13 +72,13 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
         }
 
         autopilot.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked){
+            if (isChecked) {
                 progressLeft.isEnabled = false
                 progressRight.isEnabled = false
                 controlLeft.isEnabled = false
                 controlRight.isEnabled = false
                 sendData("autopilot")
-            }else {
+            } else {
                 progressLeft.isEnabled = true
                 progressRight.isEnabled = true
                 controlLeft.isEnabled = true
@@ -96,17 +96,18 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
 
         bluetooth.setOnDataReceivedListener { _, message ->
             incoming.append(message + "\n")
-            if(prefs.getInt(this.getString(R.string.center_display_file_key), 0) == 1){
+            if (prefs.getInt(this.getString(R.string.center_display_file_key), 0) == 1) {
                 try {
                     val position = message.indexOf('.')
                     proximityBack.progress = Integer.parseInt(message.substring(0, position))
                     proximityFront.progress = Integer.parseInt(message.substring(position + 1))
-                }catch (ex:Exception){
-                    when(ex){
+                } catch (ex: Exception) {
+                    when (ex) {
                         is NumberFormatException,
                         is StringIndexOutOfBoundsException -> {
                             Toast.makeText(this, "Error while receiving sensor data", Toast.LENGTH_SHORT).show()
-                        } else -> throw ex
+                        }
+                        else -> throw ex
                     }
 
                 }
@@ -119,9 +120,9 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
         }
 
         prefs.registerOnSharedPreferenceChangeListener { _, key ->
-                if (key == getString(R.string.connection_file_key)) {
-                    changedTypeOfConnection = true
-                }
+            if (key == getString(R.string.connection_file_key)) {
+                changedTypeOfConnection = true
+            }
 
         }
     }
@@ -152,16 +153,16 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
                 enableBluetooth()
             }
         } else if (requestCode == REQUEST_CODE_SETTINGS) {
-            if(changedTypeOfConnection) {
+            if (changedTypeOfConnection) {
                 changedTypeOfConnection = false
                 bluetooth.disconnect()
                 bluetooth.stopService()
                 chooseDevice()
             }
-            if (prefs.getInt(this.getString(R.string.center_display_file_key), 0) == 0){
+            if (prefs.getInt(this.getString(R.string.center_display_file_key), 0) == 0) {
                 incoming.visibility = View.VISIBLE
                 carProximatyDisplay.visibility = View.INVISIBLE
-            }else if(prefs.getInt(this.getString(R.string.center_display_file_key), 0) == 1){
+            } else if (prefs.getInt(this.getString(R.string.center_display_file_key), 0) == 1) {
                 incoming.visibility = View.INVISIBLE
                 carProximatyDisplay.visibility = View.VISIBLE
             }
@@ -179,8 +180,9 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
             progressRight.text = controlRight.seekBarProgress.toString()
 
 
-
-            sendData("${controlLeft.seekBarProgress}.${controlRight.seekBarProgress}")
+            if(!autopilot.isChecked) {
+                sendData("${controlLeft.seekBarProgress}.${controlRight.seekBarProgress}")
+            }
         }
     }
 
@@ -195,9 +197,7 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
     private fun resetControls() {
         controlLeft.seekBarProgress = 0
         controlRight.seekBarProgress = 0
-        if(!autopilot.isChecked) {
-            onProgressChanged(controlLeft, 0, true)
-        }
+        onProgressChanged(controlLeft, 0, true)
     }
 
     private fun chooseDevice() {

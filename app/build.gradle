@@ -8,8 +8,8 @@ android {
         applicationId 'de.benehmb.EV3BluetoothController'
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 3
-        versionName '3.1'
+        versionCode var
+        versionName '3.2'
     }
     buildTypes {
         release {
