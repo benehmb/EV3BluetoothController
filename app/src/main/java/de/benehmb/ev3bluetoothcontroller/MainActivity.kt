@@ -98,9 +98,9 @@ class MainActivity : Activity(), OnSeekBarChangeListener {
             incoming.append(message + "\n")
             if (prefs.getInt(this.getString(R.string.center_display_file_key), 0) == 1) {
                 try {
-                    val position = message.indexOf('.')
-                    proximityBack.progress = Integer.parseInt(message.substring(0, position))
-                    proximityFront.progress = Integer.parseInt(message.substring(position + 1))
+                    val position = message.indexOf(';')
+                    proximityFront.progress = Integer.parseInt(message.substring(0, position))
+                    proximityBack.progress = Integer.parseInt(message.substring(position + 1))
                 } catch (ex: Exception) {
                     when (ex) {
                         is NumberFormatException,
