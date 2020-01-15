@@ -10,7 +10,7 @@ Remote-Control EV3. To debug app, use BTReciver
 ## New:
   - Additional setting to show values of proximity sensors instead of incoming text (format: front; back in percent)
 
-
+# To debug:
 BTReciver to debug without an EV3: https://github.com/benehmb/BTReciver
 
 ## Preview:
